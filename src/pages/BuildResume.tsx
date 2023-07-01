@@ -1,0 +1,31 @@
+import React from 'react';
+import "./styles/BuildResume.scss";
+import BuildAside from '../components/build/BuildAside';
+import BuildWarningDialog from '../components/build/BuildWarningDialog';
+import BuildContext from '../core/context/BuildContext';
+import BuildContextTypes from '../types/BuildContextTypes';
+import DemoContent from '../types/DemoContent';
+import ContentType from '../types/ContentType';
+
+function BuildResume() {
+
+    const [contents, setContents] = React.useState<ContentType>(DemoContent);
+    const context: BuildContextTypes = {
+        content: contents,
+        setContent: setContents,
+    };
+    return (
+        <BuildContext.Provider value={context}>
+            <section className="build-box w-full max-w-7xl mx-auto flex flex-nowrap gap-6 px-5 py-10">
+                <section className="flex-[9]">
+                    <section className="aspect-[1/1.414] border border-gray-300 border-dashed bg-white">
+                    </section>
+                </section>
+                <BuildAside />
+                <BuildWarningDialog />
+            </section>
+        </BuildContext.Provider>
+    );
+}
+
+export default BuildResume;
