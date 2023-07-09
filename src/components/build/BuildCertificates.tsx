@@ -1,10 +1,10 @@
 import React from 'react';
 import * as uuid from 'uuid';
 
-interface BuildCertificatesTypes {
-};
+// interface BuildCertificatesTypes {
+// };
 
-function BuildCertificates({}: BuildCertificatesTypes) {
+function BuildCertificates() {
 
     const inputID = `BuildCertificates_${uuid.v4()}`;
 
