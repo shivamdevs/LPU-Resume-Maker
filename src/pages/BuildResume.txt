@@ -1,7 +1,7 @@
 import React from 'react';
 import "./styles/BuildResume.scss";
-import BuildAside from '../components/build/BuildAside';
-import BuildWarningDialog from '../components/build/BuildWarningDialog';
+import BuildAside from '../components/builded/BuildAside';
+import BuildWarningDialog from '../components/builded/BuildWarningDialog';
 import BuildContext from '../core/context/BuildContext';
 import BuildContextTypes from '../types/BuildContextTypes';
 import DemoContent from '../types/DemoContent';

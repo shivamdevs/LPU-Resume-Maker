@@ -9,6 +9,8 @@ type AppDataType = {
             metadata: string;
         };
     };
+
+    firebase: string;
 };
 
 
@@ -23,6 +25,8 @@ const AppData: AppDataType = {
             metadata: "resume:build:metadata",
         },
     },
+
+    firebase: "resume-maker",
 };
 
 export default AppData;

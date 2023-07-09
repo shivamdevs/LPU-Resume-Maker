@@ -1,0 +1,15 @@
+.login-paged {
+    background-image: url(../../images/login/login-bg-geometry.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center top;
+    min-height: calc(100dvh - 80px);
+
+    &::before {
+        background-color: #fff9;
+        position: absolute;
+        inset: 0;
+        backdrop-filter: blur(8px);
+        content: "";
+    }
+}

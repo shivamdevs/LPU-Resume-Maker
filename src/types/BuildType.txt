@@ -1,0 +1,6 @@
+import ContentType from "./ContentType";
+import ResumeDataType from "./ResumeDataType";
+
+export default interface BuildType extends ResumeDataType {
+    
+};

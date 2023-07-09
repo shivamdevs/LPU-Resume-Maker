@@ -1,15 +1,8 @@
 import React from 'react';
 import Dialog from './Dialog';
 import { v4 as uuid } from 'uuid';
+import { DialogInputProps } from './DialogerTypes';
 
-export interface DialogInputProps {
-    title?: string;
-    value?: string;
-    required?: boolean;
-    requiredText?: string;
-    onClose?: (() => void) | null;
-    onSubmit?: ((value: string) => void) | null;
-}
 function DialogInput({ title, value: defaultValue = "", required = true, requiredText, onClose, onSubmit }: DialogInputProps) {
     const [value, setValue] = React.useState<string>(defaultValue);
 
@@ -18,10 +11,7 @@ function DialogInput({ title, value: defaultValue = "", required = true, require
         e?.stopPropagation();
         if (!value || value === " ") return;
         onSubmit?.(value);
-        console.log(onSubmit);
-        
         _ref?.close();
-
     }
 
     function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>, _ref: HTMLDialogElement | null) {

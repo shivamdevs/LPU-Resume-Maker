@@ -3,13 +3,17 @@ import "./styles/Layout.scss";
 import Header from '../components/common/Header';
 import Footer from '../components/common/Footer';
 import { AnimatePresence, motion } from 'framer-motion';
-import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation, useSearchParams } from 'react-router-dom';
 import LandingPage from '../pages/LandingPage';
 import AppData from '../core/app/AppData';
-import BuildResume from '../pages/BuildResume';
 import DialogerWrap from '../Dialoger/DialogerWrap';
 import LoginSupport from '../components/login/LoginSupport';
 import LoginLoading from '../components/login/LoginLoading';
+import LoginPage from '../pages/LoginPage';
+import { useAuthState } from 'react-firebase-hooks/auth';
+import firebase from '../core/firebase/firebaseConfig';
+import Dashboard from '../pages/Dashboard';
+import BuildPage from '../pages/BuildPage';
 
 
 interface AnimatorProps {
@@ -26,8 +30,9 @@ function Layout() {
             <AnimatePresence initial={false} mode="wait">
                 <Routes key={location.pathname} location={location}>
                     <Route path="/" element={<Animator title="" element={<AuthNavigate element={<LandingPage />} />} />} />
-                    <Route path="/build" element={<Animator title="Build Resume" element={<AuthVerify element={<BuildResume />} />} />} />
-                    <Route path="/dashboard" element={<Animator title="Dashboard" element={<AuthVerify element={<LandingPage />} />} />} />
+                    <Route path="/login" element={<Animator title="" element={<AuthNavigate element={<LoginPage />} />} />} />
+                    <Route path="/build/:resume/*" element={<Animator title="Build Resume" element={<AuthVerify element={<BuildPage />} />} />} />
+                    <Route path="/dashboard" element={<Animator title="Dashboard" element={<AuthVerify element={<Dashboard />} />} />} />
                     <Route path="/about" element={<Animator title="About us" element={<LandingPage />} />} />
                     <Route path="/contact" element={<Animator title="Contact" element={<LandingPage />} />} />
                 </Routes>
@@ -41,7 +46,7 @@ function Layout() {
 export default Layout;
 
 function AuthVerify({ element }: { element: React.ReactNode }) {
-    const [user, loading] = [false, false]; //useAuthState(firebase.auth);
+    const [user, loading] = useAuthState(firebase.auth);
 
     if (loading) return (<LoginLoading />);
     if (!user) return (<LoginSupport />);
@@ -49,9 +54,11 @@ function AuthVerify({ element }: { element: React.ReactNode }) {
 }
 
 function AuthNavigate({ element }: { element: React.ReactNode }) {
-    const [user] = [false]; //useAuthState(firebase.auth);
+    const [user, loading] = useAuthState(firebase.auth);
+    const [searchParams] = useSearchParams();
 
-    if (user) return (<><Navigate to="/dashboard" replace /></>);
+    if (loading) return (<LoginLoading />);
+    if (user) return (<Navigate to={decodeURI(searchParams.get("return") || "/dashboard")} replace />);
     return (<>{element}</>);
 }
 
@@ -77,6 +84,7 @@ function Animator({ element, title }: AnimatorProps) {
             }}
             exit={{ opacity: 0 }}
             style={{ minHeight: "calc(100dvh - 200px)" }}
+            className="bg-[radial-gradient(rgb(204,_238,_255),_transparent,_transparent)]"
         >
             {element}
         </motion.section>

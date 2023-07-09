@@ -8,11 +8,12 @@ type SectionProps = {
     title?: React.ReactNode;
     children: React.ReactNode;
     className?: string;
+    expanded?: boolean;
 };
 
-function Section({ title, icon, children, className }: SectionProps) {
+function Section({ title, icon, children, className, expanded: isExpanded }: SectionProps) {
 
-    const [expanded, setExpanded] = React.useState<boolean>(false);
+    const [expanded, setExpanded] = React.useState<boolean>(!!isExpanded);
 
     return (
         <section className={classNames("w-full rounded-lg overflow-hidden bg-white shadow-lg border border-gray-200", className)}>

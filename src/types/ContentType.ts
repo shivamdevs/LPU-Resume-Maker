@@ -1,13 +1,6 @@
 export default interface ContentType {
-    active: {
-        header: boolean;
-        headerImage: boolean;
-        headerName: boolean;
-        headerRole: boolean;
-        headerLinks: boolean;
+    [key: string]: any;
+    basicInfo?: {
+        name?: string;
     };
-    name?: string;
-    role?: string;
-    image?: any;
-    links?: [];
 };

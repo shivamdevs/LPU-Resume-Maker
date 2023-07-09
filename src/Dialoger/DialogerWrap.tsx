@@ -3,6 +3,7 @@ import Dialog from './Dialog';
 import DialogerTypes from './DialogerTypes';
 import DialogerContext from './DialogerContext';
 import DialogInput from './DialogInput';
+import DialogerConsent from './DialogerConsent';
 
 function DialogerWrap({ children }: { children?: React.ReactNode }) {
     const [dialogs, setDialogs] = React.useState<DialogerTypes[]>([]);
@@ -21,21 +22,23 @@ function DialogerWrap({ children }: { children?: React.ReactNode }) {
             {children}
             {dialogs.map((dialog: DialogerTypes) => (dialog.type === 'input' ?
                 <DialogInput
+                    {...dialog}
                     key={dialog.id}
-                    title={dialog.title}
                     onClose={() => handleDialogClose(dialog.id || "")}
-                    onSubmit={dialog.onSubmit}
-                    value={dialog.value}
-                    required={dialog.required}
-                /> :
-                <Dialog
-                    visible
-                    useOuterClick
-                    onClose={() => handleDialogClose(dialog.id || "")}
-                    key={dialog.id}
-                >
-                    {dialog.title}
-                </Dialog>))}
+                /> : dialog.type === 'consent' ?
+                    <DialogerConsent
+                        {...dialog}
+                        key={dialog.id}
+                        onClose={() => handleDialogClose(dialog.id || "")}
+                    />
+                    :
+                    <Dialog
+                        visible
+                        useOuterClick
+                        {...dialog}
+                        key={dialog.id}
+                        onClose={() => handleDialogClose(dialog.id || "")}
+                    >{dialog.title}</Dialog>))}
         </DialogerContext.Provider>
     )
 }

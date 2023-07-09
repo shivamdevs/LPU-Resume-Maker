@@ -25,12 +25,12 @@ const root = ReactDOM.createRoot(
 root.render(
     <React.StrictMode>
         <BrowserRouter>
-            <OasisMenuProvider theme="space" toggle trigger="click">
+            <OasisMenuProvider toggle trigger="click">
                 <DialogerWrap>
                     <App />
                 </DialogerWrap>
             </OasisMenuProvider>
-            <Toaster position="bottom-center" containerStyle={{ top: 76, bottom: 116 }} />
+            <Toaster position="bottom-center" />
         </BrowserRouter>
     </React.StrictMode>
 );

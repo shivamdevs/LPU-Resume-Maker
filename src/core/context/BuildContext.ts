@@ -1,13 +1,18 @@
 import React from "react";
-import BuildContextTypes from "../../types/BuildContextTypes";
-import DemoContent from "../../types/DemoContent";
+import BuildContextTypes from "../../types/BuildContextType";
+import { DummyResumeData } from "../../types/ResumeDataType";
+import firebase from "../firebase/firebaseConfig";
+import AppData from "../app/AppData";
+import { doc } from "firebase/firestore";
 
 
 
-const BuildContext = React.createContext<BuildContextTypes>({
-    content: DemoContent,
-    setContent: () => { },
-});
+const BuildContext = React.createContext<BuildContextTypes>([
+    DummyResumeData,
+    () => {},
+    true,
+    doc(firebase.store, AppData.firebase, "user-root"),
+]);
 
 export default BuildContext;
 
